@@ -107,14 +107,14 @@ if [ $PCAP_MODE -ne 0 ]; then
     esac
 
     SUDO_TCPDUMP_PID=$!
-    sleep 0.1
+    sleep 0.2
     TCPDUMP_PID=$(pgrep -P $SUDO_TCPDUMP_PID)
     PID_LIST+=($SUDO_TCPDUMP_PID $TCPDUMP_PID)
 fi
 
 sudo -E ./bin/upf -c ./config/upfcfg.yaml -l ${LOG_PATH}${LOG_NAME} &
 SUDO_UPF_PID=$!
-sleep 0.1
+sleep 0.2
 UPF_PID=$(pgrep -P $SUDO_UPF_PID)
 PID_LIST+=($SUDO_UPF_PID $UPF_PID)
 
@@ -135,7 +135,7 @@ done
 mongo "$DB_NAME" --eval "$MONGO_SCRIPT"
 mongosh "$DB_NAME" --eval "$MONGO_SCRIPT" 
 
-sleep 0.1
+sleep 0.2
 
 NF_LIST="nrf amf smf udr pcf udm nssf ausf chf"
 
@@ -147,7 +147,7 @@ for NF in ${NF_LIST}; do
     PID_LIST+=($PID)
 
     echo "Started ${NF} with PID ${PID}"
-    sleep 0.1
+    sleep 0.2
 done
 
 if [ $N3IWF_ENABLE -ne 0 ]; then

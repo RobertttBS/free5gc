@@ -91,9 +91,10 @@ else
     echo "[OK]"
     echo -n "[INFO] Setting kernel net.ipv4.ip_forward flag... "
     sudo sysctl -w net.ipv4.ip_forward=1 >/dev/null
-    echo "[OK]"
-    echo -n "[INFO] Stopping ufw firewall... "
-    sudo systemctl stop ufw
+    echo "[OK]"sudo sysctl -w net.ipv4.ip_forward=0 >/dev/null
+    echo -n "[INFO] Stopping ufw firewall for the given interface... "
+    sudo ufw allow in on $INTERFACE
+    sudo ufw allow out on $INTERFACE
     echo "[OK]"
 
     echo "[INFO] Configuration applied successfully"
